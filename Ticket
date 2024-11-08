@@ -1,0 +1,57 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def save_note():
+    # Gather all input data
+    customer_name = entry_customer_name.get()
+    callback_number = entry_callback_number.get()
+    auth = entry_auth.get()
+    issue = entry_issue.get()
+    equipment = entry_equipment.get()
+    test_results = entry_test_results.get()
+    resolution = entry_resolution.get()
+
+    # Display the entered information (this could be modified to save to a file)
+    note = f"""
+    Customer Name: {customer_name}
+    Callback Number: {callback_number}
+    AUTH: {auth}
+    Issue: {issue}
+    Equipment: {equipment}
+    Test Results: {test_results}
+    Resolution: {resolution}
+    """
+    messagebox.showinfo("Saved Note", note)
+
+# Set up the main window
+root = tk.Tk()
+root.title("Customer Note Template")
+
+# Labels and entries for each field
+fields = {
+    "Customer Name:": "entry_customer_name",
+    "Callback Number:": "entry_callback_number",
+    "AUTH:": "entry_auth",
+    "Issue:": "entry_issue",
+    "Equipment:": "entry_equipment",
+    "Test Results:": "entry_test_results",
+    "Resolution:": "entry_resolution",
+}
+
+# Create and place labels and entry boxes
+for i, (label_text, var_name) in enumerate(fields.items()):
+    label = tk.Label(root, text=label_text)
+    label.grid(row=i, column=0, padx=10, pady=5)
+    
+    entry = tk.Entry(root, width=50)
+    entry.grid(row=i, column=1, padx=10, pady=5)
+    
+    # Set the entry widget as a variable dynamically
+    globals()[var_name] = entry
+
+# Save button to gather input
+save_button = tk.Button(root, text="Save Note", command=save_note)
+save_button.grid(row=len(fields), column=1, pady=10)
+
+# Start the main loop
+root.mainloop()
